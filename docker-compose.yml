@@ -16,7 +16,7 @@ services:
       dockerfile: src-dockerfile
       context: .
     volumes:
-      - attach_data:/usr/src/ost/upload/scp/attach_data
+      - attach_data:/usr/src/ost/upload/attach_data
     environment:
       - DB_HOST=mariadb
       - OST_URL=localhost
