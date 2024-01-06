@@ -29,7 +29,7 @@ There are three containers that `docker-compose up` will start.
   - MariaDB database that stores the osTicket's configuration and data
   - Uses `mariadb:5.5` image (full MariaDB version is `5.5.64`)
   - Mounts `db_root_password.txt` as a secret which will set the root password of the database
-    - Make sure there are no line breaks in your file :)
+    - Make sure there are no line breaks in your file... `echo -n` is your friend!
   - Mounts `mdb_data` as a volume so that your data persists after restart
   - Exposes the MySQL default port `3306` for connectivity
 - php
