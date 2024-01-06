@@ -1,0 +1,77 @@
+/* print.css for osTicket by Andreas Schamanek v0.02 (c) public domain */
+
+body { color: black; background-color: white;
+  font-family: arial, helvetica, sans-serif;
+}
+
+/**** elements to hide ****/
+
+#header,
+#nav,
+table.ticketoptions,
+#content div + table, /* SCP tabber after ticketthread */
+.Icon,                /* all icons */
+input.button,         /* all buttons */
+/*img,                  /* all images */
+input,                /* all input fields, checkboxes, etc. */
+#reply               /* client reply */
+{ display: none; }
+
+#basic, #advance      /* SCP search/query */
+{ display: none !important; }
+
+/* If we exclude .Icon we need to make some visible, though */
+a.otherTicket, a.phoneTicket, a.emailTicket, a.webTicket,
+a.assignedTicket, a.lockedTicket, a.overdueTicket { display: inline; }
+
+/**** Margins + Padding ****/
+
+/* osTicket unfortunately uses tables for the layout */
+td { padding: 0.2em; }
+
+#ticketnotes, #ticketthread { margin: 1em 0; }
+#ticketnotes { margin-bottom: 2em; }
+
+#ticketnotes table,
+#ticketthread table { margin-top: 1em; }
+
+/**** Ticket number + Subject ****/
+
+td.msg, div.msg { font-size: 1.4em; padding: 0.3em; }
+
+/**** Borders ****/
+
+table.ticketinfo,
+table.infotable,
+#ticketnotes,
+#ticketthread { padding: 0.4em; border: 1px solid gray; }
+
+#ticketnotes table,
+#ticketthread table { padding-top: 1em; border-top: 1px solid black; }
+
+#ticketnotes table:first-child,
+#ticketthread table:first-child { padding-top: 0; border-top: 0; }
+
+/**** Miscellaneous ****/
+
+a { color: navy; text-decoration: underline; }
+th { text-align: left; }
+
+/**** Ticket lists ****/
+
+/* Borders in ticket lists */
+#content div > table table td
+{ padding: 0.2em; border-bottom: 1px solid gray; padding-top: 0.4em; }
+#content div > table table th
+{ padding: 0.3em; border-bottom: 2px solid black;
+  border-top: 1px solid black; padding-top: 0.5em;
+}
+
+/* media:print */
+.logo img {
+    visibility: visible;
+}
+
+.pdi { font-size:8pt }
+
+#content div > table table a { color: black; text-decoration: none; }

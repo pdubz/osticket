@@ -1,0 +1,50 @@
+version: '0.0.2'
+
+services:
+  mariadb:
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    image: mariadb:5.5
+    volumes:
+      - mdb_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+    secrets:
+      - db_root_password
+  php:
+    container_name: php
+    ports:
+      - "8081:80"
+    build:
+      dockerfile: src-dockerfile
+      context: .
+    volumes:
+      - attach_data:/usr/src/ost/upload/scp/attach_data
+    environment:
+      - DB_HOST=mariadb
+    secrets:
+      - db_root_password
+    depends_on:
+      - mariadb
+  nginx:
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    build:
+      dockerfile: nginx-dockerfile
+      context: .
+    volumes:
+      - certs:/etc/letsencrypt/live/
+    depends_on:
+      - php
+
+secrets:
+  db_root_password:
+    file: db_root_password.txt
+
+volumes:
+  mdb_data:
+  attach_data:
+  certs:

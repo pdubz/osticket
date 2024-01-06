@@ -1,0 +1,5 @@
+FROM php:5.6-fpm-alpine
+RUN docker-php-ext-install mysql
+COPY ./src /usr/src/ost
+WORKDIR /usr/src/ost/upload/scp
+CMD [ "php", "-S", "0.0.0.0:80" ]

@@ -1,0 +1,5 @@
+# Ignore JetBrains configuration file
+.idea
+
+# Don't want to be commiting secrets now do we...
+db_root_password.txt
