@@ -3,7 +3,9 @@ services:
     container_name: mariadb
     ports:
       - "3306:3306"
-    image: mariadb:5.5
+    build:
+      dockerfile: mdb-dockerfile
+      context: .
     volumes:
       - mdb_data:/var/lib/mysql
     environment:
