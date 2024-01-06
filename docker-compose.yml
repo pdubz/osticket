@@ -14,8 +14,6 @@ services:
       - db_root_password
   php:
     container_name: php
-    ports:
-      - "8081:80"
     build:
       dockerfile: src-dockerfile
       context: .
@@ -23,6 +21,7 @@ services:
       - attach_data:/usr/src/ost/upload/scp/attach_data
     environment:
       - DB_HOST=mariadb
+      - OST_URL=localhost
     secrets:
       - db_root_password
     depends_on:
@@ -36,7 +35,7 @@ services:
       dockerfile: nginx-dockerfile
       context: .
     volumes:
-      - certs:/etc/letsencrypt/live/
+      - certs:/etc/letsencrypt
     depends_on:
       - php
 

@@ -38,20 +38,24 @@ There are three containers that `docker-compose up` will start.
   - Uses `php:5.6-fpm-alpine` image (full PHP version is `5.6.40`)
   - Mounts `db_root_password.txt` as a secret which will set the root password of the database
   - Mounts `attach_data` as a volume where attachments will be stored so that they persist after restart
-  - Exposes port `8081` which is bound to the container's port `80`
+  - Does not expose any ports as it should only be communicated with via NGINX reverse proxy over internal docker
+    network
 - nginx
   - NGINX container that functions as a reverse proxy to allow for easy https. Manages certificates via certbot
     and autorenews certs as needed.
   - Uses `nginx:1.25.3-alpine3.18`, the latest NGINX alpine image that was available when I containerized this app
   - Mounts `certs` as a volume to persist the letsencrypt configuration/certificates
   - Exposes ports `80` and `443` so that certbot can do its thing and we can ensure redirect from 80 -> 443
+  - One last little fun tidbit...this requires a little bit of legwork to get a dummy cert in place on first run
+    otherwise NGINX will fail to start with the configuration that exists. I leave this as an exercise to the
+    reader
 
 ## DB Schema
 This was dumped out of the original osTicket DB that was running on MariaDB 5.5 on an old Synology DiskStation. No
 data is included, just schema, and I make no warranty as to its usage. You could probably find/install an old copy
 of osTicket v1.6 ST to get the original configuration data populated, run mysqldump on the database that's created,
-then alter your schema based on a diff of that dump vs /db_setup/ost_dump.sql to get it up and running, but I leave
-that as an exercise for the reader.
+then alter your schema based on a diff of that dump vs /db_setup/ost_dump.sql to get it up and running, but much like
+the first run setup for certs in NGINX, I leave this as an exercise for the reader.
 
 ## Pull Requests
 I mean... it's open source under GPLv2 but this is pretty purpose built for Trident, so I probably won't be
